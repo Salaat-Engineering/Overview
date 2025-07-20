@@ -202,16 +202,7 @@
 
         /* Improved progress tracker */
         .progress-tracker {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            background: var(--soft-white);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 24px var(--shadow-medium);
-            z-index: 1000;
-            border: 1px solid var(--primary-green);
-            min-width: 180px;
+            display: none;
         }
 
         .progress-tracker h4 {
@@ -461,13 +452,7 @@
     </style>
 </head>
 <body>
-    <div class="progress-tracker">
-        <h4>Course Progress</h4>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">0% Complete</div>
-    </div>
+
 
     <div class="container">
         <div class="header">
@@ -510,76 +495,70 @@
                 <div class="item-number">1</div>
                 <div><strong>Wudhu</strong></div>
             </div>
+            
+            <div class="part-divider">Part A</div>
             <div class="content-item">
                 <div class="item-number">2</div>
-                <div><strong>Part A</strong></div>
+                <div>Story of First man Adam (AS)</div>
             </div>
             <div class="content-item">
                 <div class="item-number">3</div>
-                <div>Storey of First man Adam (AS)</div>
-            </div>
-            <div class="content-item">
-                <div class="item-number">4</div>
                 <div>Journey through Paradise</div>
             </div>
             <div class="content-item">
-                <div class="item-number">5</div>
+                <div class="item-number">4</div>
                 <div>Shaitan-First Sin</div>
             </div>
             <div class="content-item">
-                <div class="item-number">6</div>
+                <div class="item-number">5</div>
                 <div>Departure from Jannah</div>
             </div>
             <div class="content-item">
-                <div class="item-number">7</div>
+                <div class="item-number">6</div>
                 <div>Begging for Mercy and Forgiveness</div>
             </div>
+            
+            <div class="part-divider">Part B</div>
             <div class="content-item">
-                <div class="item-number">8</div>
-                <div><strong>Part B</strong></div>
-            </div>
-            <div class="content-item">
-                <div class="item-number">9</div>
+                <div class="item-number">7</div>
                 <div>Preparations for battle against Evil</div>
             </div>
+            
+            <div class="part-divider">Part C - Art of Pleading (as taught by Allah Subhanatallah)</div>
             <div class="content-item">
-                <div class="item-number">10</div>
-                <div><strong>Part C</strong> - Art of Pleading- as taught by Allah Subhanatallah.</div>
-            </div>
-            <div class="content-item">
-                <div class="item-number">11</div>
+                <div class="item-number">8</div>
                 <div>Nourishments for survival of Body within the finite world</div>
             </div>
             <div class="content-item">
-                <div class="item-number">12</div>
+                <div class="item-number">9</div>
                 <div>Mercy for survival of Body during Earthly abode</div>
             </div>
             <div class="content-item">
-                <div class="item-number">13</div>
+                <div class="item-number">10</div>
                 <div>Mercy for emancipation of the Soul for entry into infinite World on the Day of Judgement</div>
             </div>
             <div class="content-item">
-                <div class="item-number">14</div>
+                <div class="item-number">11</div>
                 <div>Preparation and acknowledgement for Day of Judgement</div>
             </div>
             <div class="content-item">
-                <div class="item-number">15</div>
+                <div class="item-number">12</div>
                 <div>Focus on worship of Allah</div>
             </div>
             <div class="content-item">
-                <div class="item-number">16</div>
+                <div class="item-number">13</div>
                 <div>Focus on Requesting help from Allah</div>
             </div>
             <div class="content-item">
-                <div class="item-number">17</div>
+                <div class="item-number">14</div>
                 <div>Guidance for walking on straight path</div>
             </div>
             <div class="content-item">
-                <div class="item-number">18</div>
+                <div class="item-number">15</div>
                 <div>Happiness for Finding those whose paths Allah has blessed</div>
             </div>
             <div class="content-item">
-                <div class="item-number">19</div>
+                <div class="item-number">16</div>
                 <div>Avoiding paths of those who Allah has discarded</div>
             </div>
         </div>
@@ -734,9 +713,6 @@
         }
 
         function resetProgress() {
-            currentProgress = 0;
-            document.getElementById('progressFill').style.width = '0%';
-            document.getElementById('progressText').textContent = '0% Complete';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
             // Reset quiz
@@ -751,29 +727,11 @@
         function showCompletion() {
             const message = '🎉 Congratulations! You have completed viewing the Salat Engineering Course outline.\n\nMay Allah bless your journey in learning and implementing these teachings.\n\nAlhamdulillah! 🤲';
             alert(message);
-            currentProgress = 100;
-            document.getElementById('progressFill').style.width = '100%';
-            document.getElementById('progressText').textContent = '100% Complete';
-        }
-
-        // Throttled scroll handler for better performance
-        let ticking = false;
-        function handleScroll() {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    updateProgress();
-                    ticking = false;
-                });
-                ticking = true;
-            }
         }
 
         // Event listeners
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', updateProgress);
-
-        // Initial progress update
-        updateProgress();
+        window.addEventListener('scroll', () => {}); // Removed progress tracking
+        window.addEventListener('resize', () => {}); // Removed progress tracking
 
         // Smooth scrolling
         document.documentElement.style.scrollBehavior = 'smooth';
