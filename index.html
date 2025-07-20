@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALAT AS A DEGREE COURSE - Interactive Guide</title>
+    <style>
+        :root {
+            --primary-green: #2E8B57;
+            --secondary-gold: #DAA520;
+            --accent-teal: #20B2AA;
+            --warm-cream: #FFF8DC;
+            --soft-white: #FEFEFE;
+            --deep-navy: #1B3B47;
+            --muted-gold: #F4E4BC;
+            --gentle-gray: #F8F9FA;
+            --text-dark: #2C3E50;
+            --text-medium: #5D6D7E;
+            --success-green: #27AE60;
+            --error-coral: #E74C3C;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(180deg, var(--warm-cream) 0%, var(--gentle-gray) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            text-align: center;
+            background: var(--soft-white);
+            padding: 48px 32px;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            border: 1px solid rgba(218, 165, 32, 0.1);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--deep-navy);
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .header h2 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: var(--primary-green);
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .lifelong-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-gold), var(--primary-green));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 12px rgba(218, 165, 32, 0.3);
+        }
+
+        .section {
+            background: var(--soft-white);
+            margin-bottom: 32px;
+            border-radius: var(--border-radius);
+            padding: 32px;
+            box-shadow: 0 2px 16px var(--shadow-light);
+            border: 1px solid rgba(46, 139, 87, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px var(--shadow-medium);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 24px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-teal));
+            border-radius: 2px;
+        }
+
+        /* Improved section-specific styling */
+        .entry-conditions {
+            border-left: 4px solid var(--primary-green);
+            background: linear-gradient(135deg, var(--soft-white) 0%, rgba(46, 139, 87, 0.02) 100%);
+        }
+
+        .course-content {
+            border-left: 4px solid var(--secondary-gold);
+            background: linear-gradient(135deg, var(--soft-white) 0%, rgba(218, 165, 32, 0.02) 100%);
+        }
+
+        .art-of-begging {
+            border-left: 4px solid var(--accent-teal);
+            background: linear-gradient(135deg, var(--soft-white) 0%, rgba(32, 178, 170, 0.02) 100%);
+        }
+
+        .allah-responds {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--primary-green) 100%);
+            color: var(--soft-white);
+            border: none;
+        }
+
+        .allah-responds .section-title {
+            color: var(--soft-white);
+        }
+
+        .allah-responds .section-title::after {
+            background: linear-gradient(90deg, var(--secondary-gold), var(--muted-gold));
+        }
+
+        .quran-stats {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-teal) 100%);
+            color: var(--soft-white);
+            border: none;
+        }
+
+        .quran-stats .section-title {
+            color: var(--soft-white);
+        }
+
+        .quran-stats .section-title::after {
+            background: linear-gradient(90deg, var(--secondary-gold), var(--muted-gold));
+        }
+
+        .celebration {
+            border-left: 4px solid var(--secondary-gold);
+            background: linear-gradient(135deg, var(--muted-gold) 0%, var(--soft-white) 100%);
+        }
+
+        /* Better content item styling */
+        .condition-item, .content-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding: 20px;
+            background: var(--gentle-gray);
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .condition-item:hover, .content-item:hover {
+            background: var(--warm-cream);
+            border-color: var(--primary-green);
+            transform: translateX(4px);
+        }
+
+        .item-number {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-teal));
+            color: white;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 16px;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Improved progress tracker */
+        .progress-tracker {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--soft-white);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 24px var(--shadow-medium);
+            z-index: 1000;
+            border: 1px solid var(--primary-green);
+            min-width: 180px;
+        }
+
+        .progress-tracker h4 {
+            color: var(--deep-navy);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            width: 140px;
+            height: 6px;
+            background: var(--gentle-gray);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-teal));
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        /* Better quiz styling */
+        .interactive-quiz {
+            background: linear-gradient(135deg, var(--accent-teal), var(--primary-green));
+            color: var(--soft-white);
+            border: none;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 16px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.correct {
+            background: var(--success-green);
+            border-color: var(--success-green);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--error-coral);
+            border-color: var(--error-coral);
+        }
+
+        /* Stats grid improvements */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 24px 16px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--secondary-gold);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        /* Better celebration styling */
+        .celebration-animation {
+            text-align: center;
+            padding: 32px 20px;
+        }
+
+        .celebration-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            animation: pulse 2s infinite;
+            margin-bottom: 24px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+        }
+
+        /* Improved buttons */
+        .interactive-button {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-teal));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 8px;
+            box-shadow: 0 4px 16px rgba(46, 139, 87, 0.3);
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(46, 139, 87, 0.4);
+        }
+
+        .interactive-button:active {
+            transform: translateY(0);
+        }
+
+        /* Typography improvements */
+        .part-divider {
+            margin: 32px 0 24px 0;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 12px;
+            background: var(--muted-gold);
+            border-radius: var(--border-radius);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .section {
+                padding: 24px 20px;
+                margin-bottom: 24px;
+            }
+            
+            .progress-tracker {
+                position: static;
+                margin-bottom: 24px;
+                right: auto;
+                top: auto;
+            }
+            
+            .progress-bar {
+                width: 100%;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            
+            .header {
+                padding: 32px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .condition-item, .content-item {
+                padding: 16px;
+            }
+            
+            .item-number {
+                min-width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Accessibility improvements */
+        .section:focus-within {
+            outline: 2px solid var(--primary-green);
+            outline-offset: 2px;
+        }
+
+        .quiz-option:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .interactive-button:focus {
+            outline: 2px solid var(--secondary-gold);
+            outline-offset: 2px;
+        }
+
+        /* Remove floating elements - too distracting */
+        .floating-elements {
+            display: none;
+        }
+
+        /* Quiz result styling */
+        .quiz-result {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-tracker">
+        <h4>Course Progress</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Complete</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>SALAT AS A DEGREE COURSE</h1>
+            <h2>SALAT ENGINEERING WITH SCIENCE</h2>
+            <div class="lifelong-badge">Life Long Course</div>
+        </div>
+
+        <div class="section entry-conditions" data-section="1">
+            <h3 class="section-title">Entry Conditions</h3>
+            <div class="condition-item">
+                <div class="item-number">1</div>
+                <div>Sincere Declarations of Faith by being a witness to Oneness of Allah Subhanatallah and witnessing of Muhammad (PBUH) as the Final Messenger of Allah subhanatallah.</div>
+            </div>
+            <div class="condition-item">
+                <div class="item-number">2</div>
+                <div>Sane of mind</div>
+            </div>
+            <div class="condition-item">
+                <div class="item-number">3</div>
+                <div>Able to understand contents of the various aspects of Salats</div>
+            </div>
+        </div>
+
+        <div class="interactive-quiz section" data-section="2">
+            <h3 class="section-title">Knowledge Check: Entry Conditions</h3>
+            <div class="quiz-question">What is the first entry condition for this course?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectAnswer(this, false)">Physical fitness</div>
+                <div class="quiz-option" onclick="selectAnswer(this, true)">Sincere Declaration of Faith</div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">Age requirement</div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">Educational background</div>
+            </div>
+            <div id="quizResult"></div>
+        </div>
+
+        <div class="section course-content" data-section="3">
+            <h3 class="section-title">Course Content</h3>
+            <div class="content-item">
+                <div class="item-number">1</div>
+                <div><strong>Wudhu</strong></div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">2</div>
+                <div><strong>Part A</strong></div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">3</div>
+                <div>Storey of First man Adam (AS)</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">4</div>
+                <div>Journey through Paradise</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">5</div>
+                <div>Shaitan-First Sin</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">6</div>
+                <div>Departure from Jannah</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">7</div>
+                <div>Begging for Mercy and Forgiveness</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">8</div>
+                <div><strong>Part B</strong></div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">9</div>
+                <div>Preparations for battle against Evil</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">10</div>
+                <div><strong>Part C</strong> - Art of Pleading- as taught by Allah Subhanatallah.</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">11</div>
+                <div>Nourishments for survival of Body within the finite world</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">12</div>
+                <div>Mercy for survival of Body during Earthly abode</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">13</div>
+                <div>Mercy for emancipation of the Soul for entry into infinite World on the Day of Judgement</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">14</div>
+                <div>Preparation and acknowledgement for Day of Judgement</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">15</div>
+                <div>Focus on worship of Allah</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">16</div>
+                <div>Focus on Requesting help from Allah</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">17</div>
+                <div>Guidance for walking on straight path</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">18</div>
+                <div>Happiness for Finding those whose paths Allah has blessed</div>
+            </div>
+            <div class="content-item">
+                <div class="item-number">19</div>
+                <div>Avoiding paths of those who Allah has discarded</div>
+            </div>
+        </div>
+
+        <div class="section art-of-begging" data-section="4">
+            <h3 class="section-title">ART OF BEGGING</h3>
+            <p style="font-size: 1.2rem; text-align: center; margin-bottom: 24px; font-weight: 600;">
+                Prophet Adam (AS) BEGGED FOR MERCY and FORGIVENESS
+            </p>
+            <p style="font-size: 1.1rem; text-align: center; color: var(--text-medium);">
+                <strong>CONCLUSION OF THE PLEADINGS TO THE MOST MERCIFUL-</strong><br><br>
+                Rest of Course Content to follow at a later date - - -
+            </p>
+            <div style="margin-top: 32px; padding: 20px; background: var(--muted-gold); border-radius: var(--border-radius);">
+                <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px;"><strong>SALAT ENGINEERING WTH SCIENCE</strong></p>
+                <p style="font-weight: 600;">LIFE LONG COURSE</p>
+            </div>
+        </div>
+
+        <div class="section allah-responds" data-section="5">
+            <h3 class="section-title">SALAT ENGINEERING WTH SCIENCE - LIFE LONG COURSE</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;"><strong>In the FIRST SECTION -</strong></p>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;"><strong>The Beggars have finished with their PLEADINGS!</strong></p>
+            <p style="margin: 24px 0; font-size: 1.3rem; font-weight: 700;"><strong>NOW STAND STILL!</strong></p>
+            <p style="margin-bottom: 20px;">Through Allah's BENEVOLENCE AND MERCY, The GLORIFIED ONE responds).</p>
+            <p style="margin: 24px 0; font-size: 1.2rem; text-align: center; font-weight: 600;">
+                <strong>ALLAH SUBHANATALLAH RESPONDS-</strong>
+            </p>
+            <p style="margin: 20px 0; text-align: center;">(Listen to your CREATOR. Available 24/7)</p>
+            <p style="margin-bottom: 20px;"><strong>Multiple SUBJECTS to discuss with Allah Subhanatallah -</strong></p>
+            <p style="margin-top: 24px; font-weight: 600;">Summary-</p>
+        </div>
+
+        <div class="section quran-stats" data-section="6">
+            <h3 class="section-title">Quran contains -</h3>
+            <p style="margin-bottom: 24px; font-size: 1.1rem;">Approximately 80 000 words.</p>
+            <p style="margin-bottom: 24px;">Actually there are 2 000 words and due to repetition the total adds up to 80 000</p>
+            <p style="margin-bottom: 24px;">(For the information of members with Urdu language background there are 500 words which are used in everyday conversation with slight differences).</p>
+            <p style="margin-bottom: 24px;">After the few initial Suras of the Quran, on average, new words which appear in remaining Sura are between 50-60 words.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">80,000</div>
+                    <div class="stat-label">Total Words<br>(with repetition)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2,000</div>
+                    <div class="stat-label">Unique Words</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500</div>
+                    <div class="stat-label">Words used in everyday Urdu conversation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50-60</div>
+                    <div class="stat-label">New words per Sura (average)</div>
+                </div>
+            </div>
+            <p style="margin-top: 24px; line-height: 1.6;">
+                Therefore, it's not difficult to learn the Quran with meaning from the early age, if it's considered absolutely essential to lead a truly Islamic life.
+            </p>
+            <p style="margin-top: 16px; line-height: 1.6;">
+                It is well known that Quran Kareem is the easiest of all holy books which can be read and understood with EASE which leads to implementation of Allah's Commands.
+            </p>
+            <p style="margin-top: 16px; font-weight: 600; line-height: 1.6;">
+                Choice is as wide as the HORIZON.
+            </p>
+            <p style="margin-top: 16px; line-height: 1.6;">
+                Choose as little or as much as possible to suit duration of your concentration.
+            </p>
+            <p style="margin-top: 20px; font-size: 1.2rem; text-align: center; font-weight: 600;">
+                Listen to your CREATOR attentively!
+            </p>
+        </div>
+
+        <div class="section celebration" data-section="7">
+            <h3 class="section-title">After CONCLUSION OF THE REPLY from ALLAH SUBHANATALLAH!</h3>
+            <div class="celebration-animation">
+                <p class="celebration-text">BEGIN The CELEBRATIONS!</p>
+                <p style="margin-bottom: 20px; font-size: 1.1rem;">
+                    The impossible has been made possible through the MERCY OF ALLAH SUBHANATALLAH.
+                </p>
+                <p style="font-weight: 600; margin-bottom: 20px;">CELEBRATION SHALL BE COVERED IN in a later post ……….</p>
+                <p style="margin-bottom: 24px; line-height: 1.6;">
+                    In the meantime soak in the realisation of the fact that Allah Subhanatallah has directly spoken to you.
+                </p>
+                <p style="font-size: 1.3rem; color: var(--primary-green); font-weight: 700; margin-bottom: 24px;">
+                    That's the ULTIMATE GOAL OF ESTABLISHING SALAT FIVE TIMES A DAY!
+                </p>
+                <p style="margin-bottom: 20px; font-size: 1.2rem; font-weight: 600;">
+                    How lucky is it to be a Muslim! Alhamdulillah.
+                </p>
+                <p style="line-height: 1.6;">
+                    We are privilege to be given the GIFT OF SALAT as an everlasting souvenir marking the journey of our Beloved Prophet Muhammad (PBUH) to meet Allah Subhanatallah in the Heavens!
+                </p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 48px 0;">
+            <button class="interactive-button" onclick="resetProgress()">Start Course Over</button>
+            <button class="interactive-button" onclick="showCompletion()">Mark as Complete</button>
+        </div>
+    </div>
+
+    <script>
+        let currentProgress = 0;
+        const totalSections = 7;
+
+        function updateProgress() {
+            const sections = document.querySelectorAll('[data-section]');
+            const windowHeight = window.innerHeight;
+            const windowTop = window.pageYOffset;
+            const windowBottom = windowTop + windowHeight;
+
+            let visibleSections = 0;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionBottom = sectionTop + sectionHeight;
+                
+                // More accurate progress calculation
+                if (sectionTop < windowBottom - 100 && sectionBottom > windowTop + 100) {
+                    const visibleHeight = Math.min(windowBottom, sectionBottom) - Math.max(windowTop, sectionTop);
+                    const sectionProgress = Math.min(visibleHeight / sectionHeight, 1);
+                    visibleSections += sectionProgress;
+                }
+            });
+
+            currentProgress = Math.min((visibleSections / totalSections) * 100, 100);
+            document.getElementById('progressFill').style.width = currentProgress + '%';
+            document.getElementById('progressText').textContent = Math.round(currentProgress) + '% Complete';
+        }
+
+        function selectAnswer(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option === element) {
+                    option.classList.add(isCorrect ? 'correct' : 'incorrect');
+                } else if (option.textContent.includes('Sincere Declaration')) {
+                    option.classList.add('correct');
+                }
+            });
+
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.className = 'quiz-result';
+            if (isCorrect) {
+                resultDiv.innerHTML = '<p style="color: #27AE60; font-weight: 600;">✅ Correct! The first entry condition is a sincere declaration of faith.</p>';
+            } else {
+                resultDiv.innerHTML = '<p style="color: #E74C3C; font-weight: 600;">❌ Not quite. The correct answer is "Sincere Declaration of Faith".</p>';
+            }
+        }
+
+        function resetProgress() {
+            currentProgress = 0;
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressText').textContent = '0% Complete';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Reset quiz
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'auto';
+            });
+            document.getElementById('quizResult').innerHTML = '';
+        }
+
+        function showCompletion() {
+            const message = '🎉 Congratulations! You have completed viewing the Salat Engineering Course outline.\n\nMay Allah bless your journey in learning and implementing these teachings.\n\nAlhamdulillah! 🤲';
+            alert(message);
+            currentProgress = 100;
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = '100% Complete';
+        }
+
+        // Throttled scroll handler for better performance
+        let ticking = false;
+        function handleScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateProgress();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', updateProgress);
+
+        // Initial progress update
+        updateProgress();
+
+        // Smooth scrolling
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
